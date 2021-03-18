@@ -1,5 +1,5 @@
 syntax = "proto3";
-option go_package = "go/src/grpc-initiation/ecommerce";
+option go_package = "/productinfo";
 package ecommerce;
 
 service ProductInfo {
