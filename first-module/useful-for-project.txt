@@ -1,0 +1,42 @@
+Service creation:
+* Сервис — набор удаленных методов, доступных клиенту
+
+
+1. Create proto file where you define your structs and service methods;
+2. Initialize directory using: go mod init *myMagicPackageName*/service
+3. Install dependecies;
+    a)go get -u google.golang.org/grpc -> this is gRPC library;
+    b)go get -u github.com/golang/protobuf/protoc-gen-go - install protoc, which is mandatory for compilation of proto file;
+
+4. Generate golang code using terminal command:
+    a)protoc -I magicPackageWhereProtoFileIsLocated \ 0
+        ecommerce/nameOfMyMagicProtoFile.proto \ 1
+        --go_out=plugins=grpc:<module_dir_path>/ecommerce 2
+
+    where:
+        0. Package where the proto file is located;
+        1. Path to proto file
+        2. output of our generated grpc golang code, where <module_dir_path> is path where your generated gRPC code will be located;
+
+5. Create new go file in service directory where will be realized the logic for your remote methods;
+6. Create a main go file also in service directory which will act as a gRPC server;
+
+
+**********REPEAT SAME OPERATIONS FOR CLIENT(except point 5 and point 6)*************************************
+5(for client). create client main.go file where you will use methods to trigger methods from .proto file;
+
+
+
+TO BUILD AND RUN SERVICE:
+    1.go build -i -v -o bin/server
+    2. bin/server
+
+TO BUILD AND RUN CLIENT:
+    1. go build -i -v -o bin/client
+    2. bin/client
+
+
+
+
+
+
