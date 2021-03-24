@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/golang/protobuf/ptypes/wrappers"
 	"grpc-initiation/second-module/service/order/orderinfo"
+	"io"
 	"log"
 	"strings"
 )
@@ -23,7 +24,6 @@ func (s *server) GetOrder(ctx context.Context, orderId *wrappers.StringValue) (*
 	return nil, fmt.Errorf("error getting value from map by id: %s ", orderId.Value)
 }
 
-
 func (s *server) SearchOrders(searchQuery *wrappers.StringValue, stream orderinfo.OrderManagement_SearchOrdersServer) error {
 	for key, order := range s.orderMap {
 		log.Print(key, order)
@@ -41,4 +41,20 @@ func (s *server) SearchOrders(searchQuery *wrappers.StringValue, stream orderinf
 		}
 	}
 	return nil
+}
+
+func (s *server) UpdateOrders(stream orderinfo.OrderManagement_UpdateOrdersServer) error {
+	ordersStr := "Updated Order IDs : "
+	for {
+		order, err := stream.Recv()
+		if err == io.EOF {
+
+			return stream.SendAndClose(
+				&wrappers.StringValue{Value: "Orders processed " + ordersStr})
+		}
+		s.orderMap[order.Id] = order
+		log.Printf("Order ID: %s", order.Id)
+		ordersStr += order.Id + ", "
+		log.Printf("Updated orders: %v\n", s.orderMap)
+	}
 }

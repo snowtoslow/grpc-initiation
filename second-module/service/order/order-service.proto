@@ -6,9 +6,11 @@ package order;
 import "google/protobuf/wrappers.proto";
 
 service OrderManagement {
-  rpc getOrder(google.protobuf.StringValue) returns (Order);
+  rpc getOrder(google.protobuf.StringValue) returns (Order);//unary communication;
 
-  rpc searchOrders(google.protobuf.StringValue) returns (stream Order);
+  rpc searchOrders(google.protobuf.StringValue) returns (stream Order); //streaming server side communication;
+
+  rpc updateOrders(stream Order) returns (google.protobuf.StringValue); //streaming client side communication;
 }
 message Order {
   string id = 1;
