@@ -5,6 +5,7 @@ import (
 	"github.com/golang/protobuf/ptypes/wrappers"
 	"google.golang.org/grpc"
 	"grpc-initiation/second-module/client/order/orderinfo"
+	"io"
 	"log"
 )
 
@@ -26,5 +27,19 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Print("GetOrder Response -> : ", retrievedOrder)
+
+
+	searchStream, _ := orderMgtClient.SearchOrders(context.Background(),
+		&wrappers.StringValue{Value: "google"})
+
+	for {
+		searchOrder, err := searchStream.Recv()
+		if err == io.EOF {
+			break
+		}
+		// обрабатываем другие потенциальные ошибки
+		log.Print("Search Result : ", searchOrder)
+	}
+
 
 }

@@ -1,6 +1,18 @@
 1. Interaction between client and server is very simple, for every client request there is only one service response;
     Btw gRPC also support a more fancy IPC interaction styles:
         a.Unary RPC -> Client sends only one request to server and receive only one response from server;
-        b. Concurrent on server;
-        c. Concurrent on client;
-        d. Concurrent from both sides;
+        b. Server side streaming RPC -> for one client request the server returns multiple rsponses as stream;
+        c. Client side streaming RPC;
+        d. Bi-directional streaming RPC;
+
+
+
+HOW TO RUN THIS EXAMPLES:
+
+from grpc-initiation directory
+
+1.SERVER:
+    cd second-module/service && protoc -I order order/order-service.proto --go_out=plugins=grpc:$GOPATH/src/grpc-initiation/second-module/service/order
+
+2.Client:
+    cd second-module/client && protoc -I order order/order-service.proto --go_out=plugins=grpc:$GOPATH/src/grpc-initiation/second-module/client/order

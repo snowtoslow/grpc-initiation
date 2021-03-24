@@ -7,6 +7,8 @@ import "google/protobuf/wrappers.proto";
 
 service OrderManagement {
   rpc getOrder(google.protobuf.StringValue) returns (Order);
+
+  rpc searchOrders(google.protobuf.StringValue) returns (stream Order);
 }
 message Order {
   string id = 1;

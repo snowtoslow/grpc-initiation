@@ -22,18 +22,21 @@ func main() {
 				Description: "Order 1",
 				Price:       30,
 				Destination: "Chizdirovka noua",
+				Items: []string{"google main","amazon","azure","gRPC","google"},
 			},
 			"order2": {
 				Id:          "3",
 				Description: "Order 2",
 				Price:       40,
 				Destination: "Chizdirovka veche",
+				Items: []string{"google cloud","amazon","azure","gRPC","google-production"},
 			},
 			"order3": {
 				Id:          "3",
 				Description: "Order 3",
 				Price:       30,
 				Destination: "Una scurta",
+				Items: []string{"google cloud","amazon","azure","gRPC"},
 			},
 		},
 	})
