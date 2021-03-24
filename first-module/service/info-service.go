@@ -5,15 +5,15 @@ import (
 	"github.com/gofrs/uuid"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	pb "grpc-initiation/ecommerce/productinfo"
+	"grpc-initiation/first-module/service/ecommerce/productinfo"
 )
 
 type server struct {
-	productMap map[string]*pb.Product
+	productMap map[string]*productinfo.Product
 }
 
 // AddProduct реализует ecommerce.AddProduct
-func (s *server) AddProduct(ctx context.Context, in *pb.Product) (*pb.ProductID, error) {
+func (s *server) AddProduct(ctx context.Context, in *productinfo.Product) (*productinfo.ProductID, error) {
 	out, err := uuid.NewV4()
 	if err != nil {
 		return nil, status.Errorf(codes.Internal,
@@ -21,13 +21,14 @@ func (s *server) AddProduct(ctx context.Context, in *pb.Product) (*pb.ProductID,
 	}
 	in.Id = out.String()
 	if s.productMap == nil {
-		s.productMap = make(map[string]*pb.Product)
+		s.productMap = make(map[string]*productinfo.Product)
 	}
 	s.productMap[in.Id] = in
-	return &pb.ProductID{Value: in.Id}, status.New(codes.OK, "").Err()
+	return &productinfo.ProductID{Value: in.Id}, status.New(codes.OK, "").Err()
 }
+
 // GetProduct реализует ecommerce.GetProduct
-func (s *server) GetProduct(ctx context.Context, in *pb.ProductID)(*pb.Product, error) {
+func (s *server) GetProduct(ctx context.Context, in *productinfo.ProductID) (*productinfo.Product, error) {
 	value, exists := s.productMap[in.Value]
 	if exists {
 		return value, status.New(codes.OK, "").Err()

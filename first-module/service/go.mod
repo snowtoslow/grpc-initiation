@@ -1,4 +1,4 @@
-module grpc-initiation
+module grpc-initiation/first-module/service
 
 go 1.15
 

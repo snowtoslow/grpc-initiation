@@ -1,5 +1,5 @@
 syntax = "proto3";
-option go_package = "/order-info;order_info";
+option go_package = "/orderinfo";
 package order;
 
 

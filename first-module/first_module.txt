@@ -28,11 +28,11 @@ Service creation:
 
 
 TO BUILD AND RUN SERVICE:
-    1.go build -i -v -o bin/server
+    1.go build -v -o bin/server
     2. bin/server
 
 TO BUILD AND RUN CLIENT:
-    1. go build -i -v -o bin/client
+    1. go build -v -o bin/client
     2. bin/client
 
 

@@ -1,4 +1,4 @@
-module grpc-initiation
+module grpc-initiation/first-module/client
 
 go 1.15
 

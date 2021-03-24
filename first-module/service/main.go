@@ -2,7 +2,7 @@ package main
 
 import (
 	"google.golang.org/grpc"
-	pb "grpc-initiation/ecommerce/productinfo"
+	"grpc-initiation/first-module/service/ecommerce/productinfo"
 	"log"
 	"net"
 )
@@ -15,12 +15,10 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterProductInfoServer(s, &server{})
+	productinfo.RegisterProductInfoServer(s, &server{})
 
 	log.Printf("Starting gRPC listener on port " + port)
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
-
-
